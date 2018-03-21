@@ -51,6 +51,7 @@ public class MySamTest {
         driver.findElements(By.cssSelector(".row-date__day")).get(5).click();
         //element.send_keys(" and some", Keys.ARROW_DOWN)
         //for (int j = 0; j <4 ;j++) {
+        // test git-IDEA update
         WebElement myElem =  driver.findElements(By.cssSelector(".row-date__day")).get(4);
         Actions actions = new Actions(driver);
         actions.moveToElement(myElem).sendKeys(Keys.ARROW_UP).sendKeys(Keys.ARROW_UP).sendKeys(Keys.ARROW_UP).sendKeys(Keys.ARROW_UP).build().perform();
