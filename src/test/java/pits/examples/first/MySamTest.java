@@ -5,6 +5,7 @@ package pits.examples.first;
 //import org.junit.Test; org.testng.
 //import org.testng
 //import org.testng.Test;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
@@ -42,19 +43,25 @@ public class MySamTest {
     @Test
     public void mySamTest() throws Exception {
 // comm
+// Проверка того что верхнее меню появляется на главной странице
 
-//        driver.get("https://market.yandex.ru");
-        // на основной странице верхнее меню открывается в разных стилях пока "костылем" перехожу стразу к "Компьютерная техника"
         driver.get("https://new.ahml.test");
-        // Процессоры (CPU)->Процессоры Intel
-       // driver.findElements(By.cssSelector("[class='link catalog-menu__list-item metrika i-bem metrika_js_inited']")).get(8).click();
+
         driver.findElements(By.cssSelector(".row-date__day")).get(5).click();
-        //element.send_keys(" and some", Keys.ARROW_DOWN)
-        //for (int j = 0; j <4 ;j++) {
-        // test git-IDEA update
+
+        // test git-IDEA
         WebElement myElem =  driver.findElements(By.cssSelector(".row-date__day")).get(4);
         Actions actions = new Actions(driver);
         actions.moveToElement(myElem).sendKeys(Keys.ARROW_UP).sendKeys(Keys.ARROW_UP).sendKeys(Keys.ARROW_UP).sendKeys(Keys.ARROW_UP).build().perform();
+        WebElement myWebEl = driver.findElements(By.cssSelector(".main-drop__opener.hidden-lg-down")).get(1);
+        String menuName = myWebEl.getAttribute("textContent");
+        //System.out.println(menuName);
+        Assert.assertTrue(menuName.equals("Медиа"));
+
+        wait.until(elementToBeClickable(myWebEl));
+        // Thread.sleep(5000);
+        myWebEl.click();
+
 
     }
 
