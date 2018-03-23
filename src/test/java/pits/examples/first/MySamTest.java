@@ -44,14 +44,13 @@ public class MySamTest {
     }
 
     @Test
-    public void mySamTest() throws Exception {
+    public void myFstTest() throws Exception {
 // comm
 // Проверка того что верхнее меню появляется на главной странице
 
         driver.get("https://new.ahml.test");
-        //String mValue = ".//div/div[1]/address";
-        String mValue = "(.//*[@class='news-promo__date'])[2]";
-        WebElement myWebEl =  driver.findElement(By.xpath(mValue));
+        String mValue = "[class = 'index-promo index-promo_second'] .h_font-size_mobile_21";
+        WebElement myWebEl =  driver.findElement(By.cssSelector(mValue));
         Actions actions = new Actions(driver);
         actions.moveToElement(myWebEl).build().perform();
 // Прокрутка страницы вверх
@@ -68,9 +67,27 @@ public class MySamTest {
         Assert.assertTrue(menuName.equals("Медиа"));
     }
 
+    @Test
+    public void mySamTest() throws Exception {
+// comm
+
+        driver.get("https://new.ahml.test");
+        String mValue = "a[href='#drop-tab3']";
+        driver.findElement(By.cssSelector(mValue)).click();
+
+        mValue = "#drop-tab3[style *= 'display'] a[href='/media/']";
+        WebElement myWebEl = wait.until(elementToBeClickable(By.cssSelector(mValue)));
+        myWebEl.click();
+//  Проверка того что страница Медиа загрузилась
+        myWebEl = driver.findElements(By.cssSelector(".col-xs-12 .h_spacer")).get(0);
+
+        String menuName = myWebEl.getAttribute("textContent");
+        Assert.assertTrue(menuName.equals("Медиа"));
+    }
+
+
     @AfterMethod
     public void tearDown() throws Exception {
-//        driver.quit();
-
+        driver.quit();
     }
 }
